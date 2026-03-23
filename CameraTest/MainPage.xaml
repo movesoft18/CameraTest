@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="CameraTest.MainPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Камера занимает всё свободное место -->
+            <RowDefinition Height="Auto"/>
+            <!-- Кнопки и фото -->
+        </Grid.RowDefinitions>
+
+        <!-- 1. Виджет камеры -->
+        <toolkit:CameraView x:Name="CameraView"
+                            Grid.Row="0"
+                            HorizontalOptions="Fill"
+                            VerticalOptions="Fill" />
+
+        <!-- 2. Нижняя панель с кнопкой и фото -->
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="10"
+                             Padding="20"
+                             BackgroundColor="#CCFFFFFF">
+            <!-- Полупрозрачный белый фон -->
+
+            <!-- Предпросмотр сделанного фото -->
+            <Image x:Name="PreviewImage"
+                   HeightRequest="150"
+                   Aspect="AspectFit"
+                   BackgroundColor="#E0E0E0"/>
+
+            <!-- Кнопка съемки -->
+            <Button Text="📸 Сделать фото"
+                    FontSize="18"
+                    BackgroundColor="#2196F3"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnTakePhotoClicked"/>
+
+            <!-- Кнопка выбора другой камеры (опционально) -->
+            <Button Text="🔄 Переключить камеру"
+                    FontSize="14"
+                    BackgroundColor="#4CAF50"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnSwitchCameraClicked"/>
+
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
