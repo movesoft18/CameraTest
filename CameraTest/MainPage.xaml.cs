@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui.Core;
+using System.IO;
 
 namespace CameraTest
 {
@@ -22,9 +23,7 @@ namespace CameraTest
 
         }
 
-        /// <summary>
-        /// Запрос разрешения на камеру у пользователя
-        /// </summary>
+        // Запрос разрешения на камеру у пользователя
         private async Task CheckAndRequestCameraPermission()
         {
             var status = await Permissions.RequestAsync<Permissions.Camera>();
@@ -37,23 +36,18 @@ namespace CameraTest
             }
         }
 
-        /// <summary>
-        /// Обработчик кнопки "Сделать фото"
-        /// </summary>
+        // Обработчик кнопки "Сделать фото"
         private async void OnTakePhotoClicked(object sender, EventArgs e)
         {
             try
             {
-                // В версии 3.0.2 используется CaptureImage
                 var photoStream = await CameraView.CaptureImage(CancellationToken.None);
 
                 if (photoStream != null)
                 {
-                    // Отображаем фото
-                    PreviewImage.Source = ImageSource.FromStream(() => photoStream);
-
-                    // Сохраняем фото
                     await SavePhotoToFile(photoStream);
+                    photoStream.Position = 0;
+                    PreviewImage.Source = ImageSource.FromStream(() => photoStream);
 
                     await DisplayAlert("Успех", "Фото сохранено!", "OK");
                 }
@@ -64,9 +58,7 @@ namespace CameraTest
             }
         }
 
-        /// <summary>
         /// Сохранение фото в файл
-        /// </summary>
         private async Task SavePhotoToFile(Stream photoStream)
         {
             try
@@ -93,9 +85,7 @@ namespace CameraTest
             }
         }
 
-        /// <summary>
         /// Переключение камеры
-        /// </summary>
         private async void OnSwitchCameraClicked(object sender, EventArgs e)
         {
             try
