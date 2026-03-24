@@ -100,7 +100,9 @@ namespace CameraTest
                 }
 
                 var currentCamera = CameraView.SelectedCamera;
-                var nextCamera = availableCameras.FirstOrDefault(c => c != currentCamera);
+                var nextCamera = availableCameras.FirstOrDefault(
+                    c => c.DeviceId != currentCamera.DeviceId
+                    );
 
                 if (nextCamera != null)
                 {
